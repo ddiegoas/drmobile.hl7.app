@@ -1,9 +1,9 @@
-import BaseLayout from './components/base-layout';
+import Dashboard from './presentation/dashboard';
 
 function App() {
   return (
     <div style={{ width: '100%', height:'100%' }}>
-      <BaseLayout />
+      <Dashboard />
     </div>
   )
 }

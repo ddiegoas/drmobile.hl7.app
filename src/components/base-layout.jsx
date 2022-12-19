@@ -7,19 +7,19 @@ class BaseLayout extends Component {
     render(props) {
         return (
             <Box container
-                height="100%" width='100%' display="inline-flex" flexDirection="column">
-                <Box item width="100%">
+                height="100%" width='100%' display="inline-flex" flexDirection="column" >
+                <Box item width="100%" sx={{ backgroundColor: 'white' }}>
                     <Header />
                     <Divider></Divider>
                 </Box>
-                <Box container height="100%" width='100%' display="inline-flex" flexDirection="row">
+                <Box container height="100%" width='100%' display="inline-flex" flexDirection="row" >
 
-                    <Box item width='15%' height="100%" sx={{ borderRightStyle: 'solid', borderRightWidth: '0.001em', borderRightColor: 'rgba(0, 0, 0, 0.12)' }}>
+                    <Box item width='15%' height="100%" sx={{ backgroundColor: 'white', borderRightStyle: 'solid', borderRightWidth: '0.001em', borderRightColor: 'rgba(0, 0, 0, 0.12)' }}>
                         <MenuAside />
 
                     </Box>
                     <Box item width='85%' sx={{ p: 2 }}>
-                        content
+                        {this.props.children}
                     </Box>
                 </Box>
 
