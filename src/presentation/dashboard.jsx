@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
 import BaseLayout from '../components/base-layout';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
-import MoneyIcon from '@mui/icons-material/Money';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
-import PersonIcon from '@mui/icons-material/Person';
 import SensorsIcon from '@mui/icons-material/Sensors';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import BloodtypeIcon from '@mui/icons-material/Bloodtype';
+import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 
 
 
@@ -67,7 +63,7 @@ class Dashboard extends Component {
                                                 width: 56
                                             }}
                                         >
-                                            <PersonIcon />
+                                            <MedicalServicesIcon />
                                         </Avatar>
                                     </Grid>
                                 </Grid>
@@ -204,7 +200,7 @@ class Dashboard extends Component {
                                     <Grid item>
                                         <Avatar
                                             sx={{
-                                                backgroundColor: 'error.main',
+                                                backgroundColor: 'warning.main',
                                                 height: 56,
                                                 width: 56
                                             }}
@@ -251,7 +247,7 @@ class Dashboard extends Component {
                                     <Grid item>
                                         <Avatar
                                             sx={{
-                                                backgroundColor: 'warning.main',
+                                                backgroundColor: 'error.main',
                                                 height: 56,
                                                 width: 56
                                             }}
