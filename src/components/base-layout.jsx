@@ -14,11 +14,11 @@ class BaseLayout extends Component {
                 </Box>
                 <Box container height="100%" width='100%' display="inline-flex" flexDirection="row" >
 
-                    <Box item width='15%' height="100%" sx={{ backgroundColor: 'white', borderRightStyle: 'solid', borderRightWidth: '0.001em', borderRightColor: 'rgba(0, 0, 0, 0.12)' }}>
+                    <Box item width='20%' height="100%" sx={{ backgroundColor: 'white', borderRightStyle: 'solid', borderRightWidth: '0.001em', borderRightColor: 'rgba(0, 0, 0, 0.12)' }}>
                         <MenuAside />
 
                     </Box>
-                    <Box item width='85%' sx={{ p: 2 }}>
+                    <Box item width='80%' sx={{ p: 2 }}>
                         {this.props.children}
                     </Box>
                 </Box>

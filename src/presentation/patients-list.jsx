@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import BaseLayout from '../components/base-layout';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
@@ -9,6 +7,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
+import { Divider } from '@mui/material';
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -62,60 +61,53 @@ class PatientsList extends Component {
             <BaseLayout>
                 <Grid
                     container
-                    spacing={3}
                 >
                     <Grid
                         item
                         lg={12}
                         sm={12}
                         xl={12}
-                        xs={12}
-                    >   <Card
-
-                        {...props}
+                        xs={12} sx={{ backgroundColor: 'white', p: 2 }}
                     >
-                            <CardContent sx={{ height: '500px' }}>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    Pacientes
-                                </Typography>
-                                <Grid
-                                    container
-                                    spacing={3}
-                                >   <Grid
-                                    item
-                                    lg={12}
-                                    sm={12}
-                                    xl={12}
-                                    xs={12}        sx={{ mb: 1 }}
-                                >
-                                        <OutlinedInput
-                                            sx={{  flex: 1, width:'100%' }}
-                                            placeholder="Peqsuise aqui o nome do paciente"
-                                            inputProps={{ 'aria-label': 'Peqsuise aqui o nome do paciente' }}
-                                            endAdornment={
-                                                <InputAdornment position="end">
-                                                  <IconButton
-                                                    aria-label="toggle password visibility"
-                                                  >     <SearchIcon />
-                                                  </IconButton>
-                                                </InputAdornment>
-                                              }
-                                        />
-                        
-                                    </Grid>
-                                </Grid>
-                                <DataGrid
-                                    rows={rows}
-                                    columns={columns}
-                                    pageSize={5}
-                                    rowsPerPageOptions={[5]}
-                                    checkboxSelection
-                                    disableSelectionOnClick
-                                    experimentalFeatures={{ newEditingApi: true }}
+                        <Typography gutterBottom variant="h5" component="div">
+                            Pacientes
+                        </Typography>
+                        <Divider sx={{ mt: 1, mb: 1 }}></Divider>
+                        <Grid
+                            container
+                            spacing={3}
+                        >   <Grid
+                            item
+                            lg={12}
+                            sm={12}
+                            xl={12}
+                            xs={12} sx={{ mb: 1 }}
+                        >
+                                <OutlinedInput
+                                    sx={{ flex: 1, width: '100%' }}
+                                    placeholder="Peqsuise aqui o nome do paciente"
+                                    inputProps={{ 'aria-label': 'Peqsuise aqui o nome do paciente' }}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                            >     <SearchIcon />
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
                                 />
-                            </CardContent>
-                        </Card>
 
+                            </Grid>
+                        </Grid>
+                        <DataGrid sx={{ height: '700px' }}
+                            rows={rows}
+                            columns={columns}
+                            pageSize={20}
+                            rowsPerPageOptions={[10]}
+                            checkboxSelection
+                            disableSelectionOnClick
+                            experimentalFeatures={{ newEditingApi: true }}
+                        />
                     </Grid>
                 </Grid>
             </BaseLayout>

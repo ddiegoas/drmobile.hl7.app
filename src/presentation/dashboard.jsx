@@ -13,6 +13,7 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import BloodtypeIcon from '@mui/icons-material/Bloodtype';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { Divider } from '@mui/material';
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -311,25 +312,33 @@ class Dashboard extends Component {
                         sm={12}
                         xl={12}
                         xs={12}
-                    >   <Card
-              
-                        {...props}
+                    >   
+                    
+                    <Grid
+                    container
+                >
+                    <Grid
+                        item
+                        lg={12}
+                        sm={12}
+                        xl={12}
+                        xs={12} sx={{ backgroundColor: 'white', p: 2 }}
                     >
-                            <CardContent   sx={{ height: '500px'}}>
                                 <Typography gutterBottom variant="h5" component="div">
                                     Últimos Pacientes
                                 </Typography>
-                                <DataGrid
+                                <Divider sx={{ mt: 1, mb: 1 }}></Divider>
+                                <DataGrid  sx={{ height: '500px' }}
                                     rows={rows}
                                     columns={columns}
-                                    pageSize={5}
-                                    rowsPerPageOptions={[5]}
+                                    pageSize={10}
+                                    rowsPerPageOptions={[10]}
                                     checkboxSelection
                                     disableSelectionOnClick
                                     experimentalFeatures={{ newEditingApi: true }}
                                 />
-                            </CardContent>
-                        </Card>
+                            </Grid>
+                        </Grid>
 
                     </Grid>
                 </Grid>
