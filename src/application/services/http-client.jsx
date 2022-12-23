@@ -10,13 +10,9 @@ const executeRequest = async (params) => {
   try {
     const result = await axios.request(params);
     data = result.data;
-    //  setResponse(result.data);
   } catch (fail) {
     error = fail;
   } 
-  // finally {
-  //   // setloading(false);
-  // }
 
   return { data, error };
 };
@@ -26,15 +22,3 @@ const HttpClient = {
 };
 
 export default  HttpClient;
-
-
-// export const HttpClient = () => {
-  
-  
-
-//   // useEffect(() => {
-//   //     fetchData(axiosParams);
-//   // }, []); // execute once only
-
-//   return { executeRequest };
-// };

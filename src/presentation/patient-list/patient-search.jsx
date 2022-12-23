@@ -21,7 +21,6 @@ export default function PatientSearch(props: any) {
     });
 
     const changeLoading = (loading = false) => {
-        console.log(loading);
         setLoading(loading);
 
     };
@@ -77,6 +76,15 @@ export default function PatientSearch(props: any) {
                                 onChange={handleOnChange}
                                 placeholder="Peqsuise aqui o nome do paciente"
                                 value={term}
+                                onKeyDown={(e) => {
+                                    console.log(e.key);
+                                    if (e.key === "Enter") {
+                                        changeSearchParameters(term);
+                                    } else if (e.key === "Escape") {
+                                        changeSearchParameters("");
+                                    }
+                                }
+                                }
                                 inputProps={{ 'aria-label': 'Peqsuise aqui o nome do paciente' }}
                                 endAdornment={
                                     <InputAdornment position="end">
@@ -86,7 +94,7 @@ export default function PatientSearch(props: any) {
                                             }}
                                         >     <ClearIcon />
                                         </IconButton>
-                                        <IconButton
+                                        <IconButton type="submit"
                                             onClick={() => {
                                                 changeSearchParameters(term);
                                             }}

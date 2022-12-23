@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams, GridApi, GridCellValue,Record } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridValueGetterParams, GridApi, GridCellValue, Record } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import PatientAppService from '../../application/services/patient/patient-app-service';
 import moment from 'moment';
@@ -33,8 +33,8 @@ const columns: GridColDef[] = [
         headerName: "Ação",
         sortable: false,
         flex: 1,
-        align:"center",
-        headerAlign:"center",
+        align: "center",
+        headerAlign: "center",
         renderCell: (params) => {
             const onClick = (e) => {
                 e.stopPropagation(); // don't select this row after clicking
@@ -57,36 +57,28 @@ const columns: GridColDef[] = [
     }
 ];
 
-export default function PatientListTable({ changeSearchParameters, changeLoading, searchPatientParams }) {
+export default function PatientDashboardTable({ topPatients }) {
     const [patientRequestResult, setPatientRequestResult] = useState({
-        data: {
-            items: [],
-            totalItems: 0,
-        },
+        data: [],
         error: null,
     });
 
     useEffect(() => {
         (async () => {
-            changeLoading(true);
-            let result = await PatientAppService.searchPatients(searchPatientParams);
+            let result = await PatientAppService.topPatients({ top: topPatients });
+            console.log(result);
             setPatientRequestResult(result);
-            changeLoading(false);
         })();
-    }, [searchPatientParams]);
+    }, [topPatients]);
 
     return (
-        <DataGrid sx={{ height: '700px' }}
-            rows={patientRequestResult.data.items}
-            rowCount={patientRequestResult.data.totalItems}
+        <DataGrid sx={{ height: '500px' }}
+            rows={patientRequestResult.data}
+            rowCount={patientRequestResult.data.length}
             columns={columns}
-            pageSize={searchPatientParams.pageSize}
-            page={searchPatientParams.page}
-            paginationMode="server"
-            onPageChange={(page) => {
-                changeSearchParameters(searchPatientParams.term, page);
-            }}
-            rowsPerPageOptions={[searchPatientParams.pageSize]}
+            pageSize={topPatients}
+            page={1}
+            hideFooterPagination="true"
             disableSelectionOnClick
             experimentalFeatures={{ newEditingApi: true }}
         />

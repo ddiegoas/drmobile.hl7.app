@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
 import HttpClient from '../http-client';
 
-const searchPatients =async (params) => {
+const searchPatients = async (params) => {
     return await HttpClient.executeRequest({
         method: 'get',
         url: '/patient',
@@ -9,7 +8,15 @@ const searchPatients =async (params) => {
     });
 };
 
-const byId = async  (params) => {
+const topPatients = async (params) => {
+    return await HttpClient.executeRequest({
+        method: 'get',
+        url: '/patient/top',
+        params
+    });
+};
+
+const patientById = async (params) => {
     return await HttpClient.executeRequest({
         method: 'get',
         url: '/patient',
@@ -18,44 +25,7 @@ const byId = async  (params) => {
 };
 
 const PatientAppService = {
-    searchPatients, byId
+    searchPatients, patientById, topPatients
 };
 
 export default PatientAppService;
-
-// export const PatientAppService = () => {
-
-//     const searchPatients = (params) => {
-//         console.log("teste");
-//         return HttpClient().executeRequest({
-//             method: 'get',
-//             url: '/patient',
-//             params
-//         });
-
-//     };
-
-//     return {
-//         searchPatients
-//     };
-// }
-
-//     // export const PatientAppService = (action, params) => {
-//     //     // const [result, setResult] = useState(undefined);
-
-
-//     //     useEffect(() => {
-//     //         // const searchPatients = (params) => {
-//     //         //     console.log("teste");
-//     //         //     return HttpClient({
-//     //         //         method: 'get',
-//     //         //         url: '/patient',
-//     //         //         params
-//     //         //     });
-
-//     //         // };
-//     //         // searchPatients(params);
-//     //     }, [action, params]); // execute once only
-
-//     //     return null;
-//     // };
