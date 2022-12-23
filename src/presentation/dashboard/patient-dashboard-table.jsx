@@ -30,7 +30,7 @@ const columns: GridColDef[] = [
         editable: false,
     }, {
         field: "action",
-        headerName: "Ação",
+        headerName: "#",
         sortable: false,
         flex: 1,
         align: "center",
@@ -66,7 +66,6 @@ export default function PatientDashboardTable({ topPatients }) {
     useEffect(() => {
         (async () => {
             let result = await PatientAppService.topPatients({ top: topPatients });
-            console.log(result);
             setPatientRequestResult(result);
         })();
     }, [topPatients]);
@@ -77,7 +76,7 @@ export default function PatientDashboardTable({ topPatients }) {
             rowCount={patientRequestResult.data.length}
             columns={columns}
             pageSize={topPatients}
-            page={1}
+            page={0}
             hideFooterPagination="true"
             disableSelectionOnClick
             experimentalFeatures={{ newEditingApi: true }}

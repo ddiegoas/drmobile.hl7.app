@@ -30,7 +30,7 @@ const columns: GridColDef[] = [
         editable: false,
     }, {
         field: "action",
-        headerName: "Ação",
+        headerName: "#",
         sortable: false,
         flex: 1,
         align:"center",
@@ -76,7 +76,7 @@ export default function PatientListTable({ changeSearchParameters, changeLoading
     }, [searchPatientParams]);
 
     return (
-        <DataGrid sx={{ height: '700px' }}
+        <DataGrid sx={{ height: '600px' }}
             rows={patientRequestResult.data.items}
             rowCount={patientRequestResult.data.totalItems}
             columns={columns}

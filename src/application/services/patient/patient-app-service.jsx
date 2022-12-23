@@ -16,11 +16,10 @@ const topPatients = async (params) => {
     });
 };
 
-const patientById = async (params) => {
+const patientById = async (id) => {
     return await HttpClient.executeRequest({
         method: 'get',
-        url: '/patient',
-        params
+        url: `/patient/${id}`
     });
 };
 
