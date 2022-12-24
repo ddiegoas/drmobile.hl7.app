@@ -32,6 +32,7 @@ export default function ResultExamsListTable({ changeSearchParameters, changeLoa
     useEffect(() => {
         (async () => {
             changeLoading(true);
+            console.log(searchExamParams);
             let result = await ExamResultAppService.searchExamResults(searchExamParams);
             setExamRequestResult(result);
             changeLoading(false);

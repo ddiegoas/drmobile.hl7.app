@@ -17,6 +17,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import ExamResultAppService from '../../application/services/patient/exam-result-app-service';
 import PatientAppService from '../../application/services/patient/patient-app-service';
 import moment from 'moment';
+import ClearIcon from '@mui/icons-material/Clear';
+
 
 export default function ResultExamsSearch(props: any) {
     const [patientLocations, setPatientLocations] = useState({
@@ -33,8 +35,10 @@ export default function ResultExamsSearch(props: any) {
         patientId: 121,
         locationId: null,
         examId: null,
-        startDate: null,
-        endDate: null,
+        startDate: moment().add(-6, 'M').format("YYYY-MM-DD"),
+        endDate: moment().format("YYYY-MM-DD"),
+        startDatePicker: moment().add(-6, 'M'),
+        endDatePicker: moment(),
         page: 0,
         pageSize: 20,
     });
@@ -55,22 +59,28 @@ export default function ResultExamsSearch(props: any) {
         setLoading(loading);
     };
 
-    const changeSearchParameters = (locationId = searchExamParams.locationId, examId = searchExamParams.examId, patientId = searchExamParams.patientId, startDate = searchExamParams.startDate, endDate = searchExamParams.endDate, page = searchExamParams.Page, pageSize = searchExamParams.pageSize) => {
+    const changeSearchParameters = (locationId = searchExamParams.locationId, examId = searchExamParams.examId, patientId = searchExamParams.patientId, startDatePicker = searchExamParams.startDatePicker, endDatePicker = searchExamParams.endDatePicker, page = searchExamParams.Page, pageSize = searchExamParams.pageSize) => {
+
         setSearchExamParams({
             ...searchExamParams,
 
             examId: examId,
             patientId: patientId,
             locationId: locationId,
-            startDate: startDate,
-            endDate: endDate,
+            startDate: startDatePicker.format("YYYY-MM-DD"),
+            endDate: endDatePicker.format("YYYY-MM-DD"),
             page: page,
-            pageSize: pageSize
+            pageSize: pageSize,
+            startDatePicker: startDatePicker,
+            endDatePicker: endDatePicker,
         });
+
     };
 
     const handleOnChange = (e) => {
-        if (e.target.name == "location-select") {
+
+
+        if (e.target.name === "location-select") {
             (async () => {
                 if (e.target.value != null) {
                     let result = await ExamResultAppService.findExamsPatientLocation(searchExamParams.patientId, e.target.value);
@@ -83,12 +93,8 @@ export default function ResultExamsSearch(props: any) {
                 }
             })();
             changeSearchParameters(e.target.value);
-        } else if (e.target.name == "exam-select") {
+        } else if (e.target.name === "exam-select") {
             changeSearchParameters(searchExamParams.locationId, e.target.value);
-        } else if (e.target.name == "start-date-datepicker") {
-            changeSearchParameters(searchExamParams.locationId, e.target.value, searchExamParams.patientId, e.target.value);
-        } else if (e.target.name == "end-date-datepicker") {
-            changeSearchParameters(searchExamParams.locationId, e.target.value, searchExamParams.patientId, searchExamParams.startDate, e.target.value);
         }
     };
 
@@ -172,6 +178,7 @@ export default function ResultExamsSearch(props: any) {
                                                 id="location-select"
                                                 value={searchExamParams.locationId}
                                                 defaultValue={searchExamParams.locationId}
+                                                onInputChange={handleOnChange}
                                                 onChange={handleOnChange}
                                                 name="location-select"
                                                 label="Unidade de Internação"
@@ -223,12 +230,17 @@ export default function ResultExamsSearch(props: any) {
                                         xl={2}
                                     >
                                         <FormControl sx={{ width: "100%" }}>
+
+
                                             <DesktopDatePicker
                                                 label="Data Inicial"
                                                 inputFormat="DD/MM/YYYY"
                                                 id="start-date-datepicker"
-                                                value={searchExamParams.startDate}
-                                                onChange={handleOnChange}
+                                                name="start-date-datepicker"
+                                                onChange={(newValue) => {
+                                                    changeSearchParameters(searchExamParams.locationId, searchExamParams.examId, searchExamParams.patientId, newValue);
+                                                }}
+                                                value={searchExamParams.startDatePicker}
                                                 renderInput={(params) => <TextField {...params} />}
                                             />
                                         </FormControl>
@@ -244,9 +256,13 @@ export default function ResultExamsSearch(props: any) {
                                                 label="Data Final"
                                                 inputFormat="DD/MM/YYYY"
                                                 id="end-date-datepicker"
-                                                value={searchExamParams.endDate}
-                                                //   value={value}
-                                                onChange={handleOnChange}
+                                                name="end-date-datepicker"
+                                                minDate={searchExamParams.startDatePicker}
+                                                maxDate={moment()}
+                                                onChange={(newValue) => {
+                                                    changeSearchParameters(searchExamParams.locationId, searchExamParams.examId, searchExamParams.patientId, searchExamParams.startDatePicker, newValue);
+                                                }}
+                                                value={searchExamParams.endDatePicker}
                                                 renderInput={(params) => <TextField {...params} />}
                                             />
                                         </FormControl>

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams, GridApi, GridCellValue,Record } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridValueGetterParams, GridApi, GridCellValue, Record } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import PatientAppService from '../../application/services/patient/patient-app-service';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'Id', hide: true, width: 120, editable: false },
@@ -33,9 +34,10 @@ const columns: GridColDef[] = [
         headerName: "#",
         sortable: false,
         flex: 1,
-        align:"center",
-        headerAlign:"center",
+        align: "center",
+        headerAlign: "center",
         renderCell: (params) => {
+          
             const onClick = (e) => {
                 e.stopPropagation(); // don't select this row after clicking
 
@@ -48,7 +50,7 @@ const columns: GridColDef[] = [
                     .forEach(
                         (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
                     );
-
+                // return useNavigate("/exam-results");
                 return alert(JSON.stringify(thisRow, null, 4));
             };
 
