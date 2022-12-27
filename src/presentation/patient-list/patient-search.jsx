@@ -58,7 +58,7 @@ export default function PatientSearch(props: any) {
                     sx={{ backgroundColor: 'white', p: 2 }}
                 >
                     <Typography gutterBottom variant="h5" component="div">
-                        Pacientes
+                        Consultar Pacientes
                     </Typography>
                     <Divider sx={{ mt: 1, mb: 1 }}></Divider>
                     <Grid

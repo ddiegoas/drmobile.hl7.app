@@ -14,10 +14,10 @@ import FormControl from '@mui/material/FormControl';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import ExamResultAppService from '../../application/services/patient/exam-result-app-service';
+import ExamResultAppService from '../../application/services/examResults/exam-result-app-service';
 import PatientAppService from '../../application/services/patient/patient-app-service';
 import moment from 'moment';
-import ClearIcon from '@mui/icons-material/Clear';
+import { useParams } from 'react-router-dom';
 
 
 export default function ResultExamsSearch(props: any) {
@@ -32,7 +32,7 @@ export default function ResultExamsSearch(props: any) {
     const [patient, setPatient] = useState({});
     const [loading, setLoading] = useState(false);
     const [searchExamParams, setSearchExamParams] = useState({
-        patientId: 121,
+        patientId: useParams().patientId,
         locationId: null,
         examId: null,
         startDate: moment().add(-6, 'M').format("YYYY-MM-DD"),
@@ -40,17 +40,17 @@ export default function ResultExamsSearch(props: any) {
         startDatePicker: moment().add(-6, 'M'),
         endDatePicker: moment(),
         page: 0,
-        pageSize: 20,
+        pageSize: 50,
     });
 
     useEffect(() => {
         (async () => {
+
             let patientLocations = await ExamResultAppService.findPatientLocation(searchExamParams.patientId);
             setPatientLocations(patientLocations);
 
             let patient = await PatientAppService.patientById(searchExamParams.patientId);
 
-            console.log(patient);
             setPatient(patient);
         })();
     }, []);
@@ -59,7 +59,7 @@ export default function ResultExamsSearch(props: any) {
         setLoading(loading);
     };
 
-    const changeSearchParameters = (locationId = searchExamParams.locationId, examId = searchExamParams.examId, patientId = searchExamParams.patientId, startDatePicker = searchExamParams.startDatePicker, endDatePicker = searchExamParams.endDatePicker, page = searchExamParams.Page, pageSize = searchExamParams.pageSize) => {
+    const changeSearchParameters = ({ locationId = searchExamParams.locationId, examId = searchExamParams.examId, patientId = searchExamParams.patientId, startDatePicker = searchExamParams.startDatePicker, endDatePicker = searchExamParams.endDatePicker, page = searchExamParams.Page, pageSize = searchExamParams.pageSize }) => {
 
         setSearchExamParams({
             ...searchExamParams,
@@ -92,9 +92,9 @@ export default function ResultExamsSearch(props: any) {
                     });
                 }
             })();
-            changeSearchParameters(e.target.value);
+            changeSearchParameters({ locationId: e.target.value });
         } else if (e.target.name === "exam-select") {
-            changeSearchParameters(searchExamParams.locationId, e.target.value);
+            changeSearchParameters({ examId: e.target.value });
         }
     };
 
@@ -108,7 +108,7 @@ export default function ResultExamsSearch(props: any) {
                     <CircularProgress color="inherit" />
                 </Backdrop>
                 <Grid
-                    container
+                    container={true}
                 >
                     <Grid
                         item
@@ -129,7 +129,7 @@ export default function ResultExamsSearch(props: any) {
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
                                     <Grid
-                                        container
+                                        container={true}
                                     >          <Grid
                                         item
                                         lg={12}
@@ -158,11 +158,11 @@ export default function ResultExamsSearch(props: any) {
                                     </Grid>
                                 </Typography>
                                 <Typography gutterBottom variant="h6" sx={{ mt: 2 }} component="div">
-                                    Resultado de Exames
+                                    Sinais Vitais
                                 </Typography>
                                 <Divider sx={{ mt: 1, mb: 1 }}></Divider>
                                 <Grid
-                                    container
+                                    container={true}
                                     spacing={3}
                                     sx={{ mb: 1 }}
                                 >
@@ -238,7 +238,7 @@ export default function ResultExamsSearch(props: any) {
                                                 id="start-date-datepicker"
                                                 name="start-date-datepicker"
                                                 onChange={(newValue) => {
-                                                    changeSearchParameters(searchExamParams.locationId, searchExamParams.examId, searchExamParams.patientId, newValue);
+                                                    changeSearchParameters({ startDatePicker: newValue });
                                                 }}
                                                 value={searchExamParams.startDatePicker}
                                                 renderInput={(params) => <TextField {...params} />}
@@ -260,7 +260,7 @@ export default function ResultExamsSearch(props: any) {
                                                 minDate={searchExamParams.startDatePicker}
                                                 maxDate={moment()}
                                                 onChange={(newValue) => {
-                                                    changeSearchParameters(searchExamParams.locationId, searchExamParams.examId, searchExamParams.patientId, searchExamParams.startDatePicker, newValue);
+                                                    changeSearchParameters({ endDatePicker: newValue });
                                                 }}
                                                 value={searchExamParams.endDatePicker}
                                                 renderInput={(params) => <TextField {...params} />}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams, GridApi, GridCellValue, Record } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
-import ExamResultAppService from '../../application/services/patient/exam-result-app-service';
+import ExamResultAppService from '../../application/services/examResults/exam-result-app-service';
 import moment from 'moment';
 
 const columns: GridColDef[] = [
@@ -32,7 +32,7 @@ export default function ResultExamsListTable({ changeSearchParameters, changeLoa
     useEffect(() => {
         (async () => {
             changeLoading(true);
-            console.log(searchExamParams);
+
             let result = await ExamResultAppService.searchExamResults(searchExamParams);
             setExamRequestResult(result);
             changeLoading(false);
@@ -48,7 +48,7 @@ export default function ResultExamsListTable({ changeSearchParameters, changeLoa
             page={searchExamParams.page}
             paginationMode="server"
             onPageChange={(page) => {
-                changeSearchParameters(searchExamParams.term, page);
+                changeSearchParameters({ page: page });
             }}
             rowsPerPageOptions={[searchExamParams.pageSize]}
             disableSelectionOnClick

@@ -9,6 +9,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import InboxIcon from '@mui/icons-material/Inbox';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+
 import Link from '@mui/material/Link';
 
 class MenuAside extends Component {
@@ -31,9 +33,9 @@ class MenuAside extends Component {
                     </ListItemButton>
                     <ListItemButton component={Link} to="/patients">
                         <ListItemIcon>
-                            <MedicalServicesIcon />
+                            <PersonSearchIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Pacientes" />
+                        <ListItemText primary="Consultar Pacientes" />
                     </ListItemButton>
                 </List>
                 <Divider></Divider>

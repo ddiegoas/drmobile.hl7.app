@@ -5,6 +5,7 @@ import PatientAppService from '../../application/services/patient/patient-app-se
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 
+
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'Id', hide: true, width: 120, editable: false },
     { field: 'externalId', headerName: 'Nº Atendimento', flex: 1 },
@@ -37,29 +38,16 @@ const columns: GridColDef[] = [
         align: "center",
         headerAlign: "center",
         renderCell: (params) => {
-          
-            const onClick = (e) => {
-                e.stopPropagation(); // don't select this row after clicking
-
-                const api: GridApi = params.api;
-                const thisRow: Record<string, GridCellValue> = {};
-
-                api
-                    .getAllColumns()
-                    .filter((c) => c.field !== "__check__" && !!c)
-                    .forEach(
-                        (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-                    );
-                // return useNavigate("/exam-results");
-                return alert(JSON.stringify(thisRow, null, 4));
+            const renderText = (e) => {
+                return `/exam-results/${params.row.id}`;
             };
-
-            return <Button onClick={onClick}>Selecionar</Button>;
+            return <Button href={renderText()} variant="contained">Sinais Vitais</Button>;
         }
     }
 ];
 
 export default function PatientListTable({ changeSearchParameters, changeLoading, searchPatientParams }) {
+    const navigate = useNavigate();
     const [patientRequestResult, setPatientRequestResult] = useState({
         data: {
             items: [],
@@ -81,6 +69,7 @@ export default function PatientListTable({ changeSearchParameters, changeLoading
         <DataGrid sx={{ height: '600px' }}
             rows={patientRequestResult.data.items}
             rowCount={patientRequestResult.data.totalItems}
+            navigate={navigate}
             columns={columns}
             pageSize={searchPatientParams.pageSize}
             page={searchPatientParams.page}

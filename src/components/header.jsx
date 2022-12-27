@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 class Header extends Component {
     render(props) {
         return (
-            <Grid container>
+            <Grid container={true}>
                 <Grid item xs={4}>
                     <svg width="256" height="76" viewBox="0 0 256 76" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M58.1308 28H23V49.0986C23 52.9101 26.0754 56 29.8692 56H41.6449H58.1308C61.9246 56 65 52.9101 65 49.0986V34.9014C65 31.0899 61.9246 28 58.1308 28ZM41.6449 56L46.6495 48.7042H54.7944C56.4203 48.7042 57.7383 47.38 57.7383 45.7465V38.2535C57.7383 36.62 56.4203 35.2958 54.7944 35.2958H30.2617V45.7465C30.2617 47.38 31.5797 48.7042 33.2056 48.7042H41.6449V56Z" fill="#1277FB" />
@@ -21,7 +21,7 @@ class Header extends Component {
                 <Grid item xs={4}>
 
                 </Grid>
-                <Grid container justifyContent="flex-end" xs={4} >
+                <Grid container={true} justifyContent="flex-end" xs={4} >
                     <Toolbar >
                         <IconButton color="inherit" aria-label="menu" >
                             <NotificationsActiveIcon />

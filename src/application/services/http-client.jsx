@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8080/';
+axios.defaults.baseURL =  process.env.REACT_APP_API_HL7_URL;
 
 const executeRequest = async (params) => {
   let data = null;
