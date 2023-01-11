@@ -1,13 +1,40 @@
 version: '3.7'
 services:
-    app:
-        container_name: drmobile-hl7-app
-        environment:
-           NODE_ENV: production
-           REACT_APP_API_HL7_URL: http://localhost:8080/
-        image: drmobile/drmobile.hl7.app  
-        volumes:
-            - '.:/app'
-            - '/app/node_modules'
-        ports:
-            - '3001:3000'
+  api:
+    container_name: drmobile-hl7-api
+    environment:
+         DB_HL7_HOST: 192.168.50.208
+         DB_HL7_PORT: 1521
+         DB_HL7_SID: XE
+         DB_HL7_USER: system
+         DB_HL7_PASSWORD: oracle
+    image: drmobile/drmobile.hl7.api  
+    restart: always
+    ports:
+      - 8080:8080
+      - 6660:8081
+    depends_on:
+      database:
+          condition: service_started
+    volumes:
+          - '.:/app'
+  app:
+      container_name: drmobile-hl7-app
+      environment:
+          NODE_ENV: production
+          REACT_APP_API_HL7_URL: http://localhost:8080/
+      image: drmobile/drmobile.hl7.app
+      volumes:
+          - '.:/app'
+          - '/app/node_modules'
+      ports:
+          - '3000:3000'
+  database:
+      container_name: drmobile-oracle
+      environment:
+          ORACLE_PWD: oracle
+      image: container-registry.oracle.com/database/express:21.3.0-xe
+      volumes:
+          - '.:/app'
+      ports:
+          - '1521:1521'
