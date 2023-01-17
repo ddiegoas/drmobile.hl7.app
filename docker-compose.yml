@@ -26,7 +26,6 @@ services:
       image: drmobile/drmobile.hl7.app
       volumes:
           - '.:/app'
-          - '/app/node_modules'
       ports:
           - '3000:3000'
   database:
